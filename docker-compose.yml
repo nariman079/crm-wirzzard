@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  app:
+  crm_app:
     build: .
     restart: always
-    container_name: 'Backend'
+    container_name: 'CrmWizzard'
     command: /bin/bash -c "poetry run python manage.py collectstatic --noinput && poetry run python manage.py migrate && poetry run uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --workers 4"
     volumes:
       - .:/app
@@ -22,7 +22,7 @@ services:
       - static:/app/static
       - media:/app/media
     depends_on:
-      - app
+      - crm_app
     network_mode: host
 
 
