@@ -4,4 +4,4 @@ RUN pip install poetry
 WORKDIR /crm/
 COPY poetry.lock pyproject.toml /crm/
 RUN poetry config virtualenvs.create false && poetry install
-COPY . /crm/
+COPY ./app /crm/
