@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    restart: always
+    container_name: 'Backend'
+    command: /bin/bash -c "poetry run python manage.py collectstatic --noinput && poetry run python manage.py migrate && poetry run uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --workers 4"
+    volumes:
+      - .:/app
+      - static:/app/static
+      - media:/app/media
+    ports:
+      - 8001:8000
+    network_mode: host
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    depends_on:
+      - app
+    network_mode: host
+
+
+volumes:
+  static:
+  media:
+
