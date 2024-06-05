@@ -17,7 +17,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "85:80"
+      - "85:81"
     volumes:
       - static:/crm/static
       - media:/crm/media
