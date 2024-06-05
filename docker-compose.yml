@@ -5,7 +5,7 @@ services:
     build: .
     restart: always
     container_name: 'CrmWizzard'
-    command: /bin/bash -c "poetry run python app/manage.py collectstatic --noinput && poetry run python app/manage.py migrate && poetry run uvicorn app.asgi:application --host 0.0.0.0 --port 8001 --workers 4"
+    command: /bin/bash -c "poetry run python app/manage.py collectstatic --noinput && poetry run python app/manage.py migrate && poetry run uvicorn app.app.asgi:application --host 0.0.0.0 --port 8001 --workers 4"
     volumes:
       - .:/crm
       - static:/crm/static
