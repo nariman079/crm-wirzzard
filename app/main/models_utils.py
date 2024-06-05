@@ -1,4 +1,5 @@
 import datetime
+import os.path
 from pathlib import Path
 from typing import Any, List
 from dateutil.relativedelta import relativedelta
@@ -40,6 +41,9 @@ def create_report_order(report, order_model, order_line_model) -> Any:
     data_frame = DataFrame(report_order_line_list)
     file_name = f'Report_{datetime.datetime.now()}.xlsx'
     file_path = Path('media', 'reports') / file_name
+
+    if not os.path.isdir(Path('media', 'reports')):
+        os.mkdir(Path('media', 'reports'))
     data_frame.to_excel(file_path)
 
     report.result_file = SimpleUploadedFile(
